@@ -1,4 +1,4 @@
-package Discord_BOT;
+/*package Discord_BOT;
 import discord4j.core.DiscordClient;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.event.domain.message.MessageCreateEvent;
@@ -30,7 +30,7 @@ public class Botesito {
 
     /*
       Creamos el mensaje embed donde nos da el titulo y la imagen del mismo.
-     */
+
 
         EmbedCreateSpec embed = EmbedCreateSpec.builder()
                 .title("Catinho")
@@ -43,7 +43,7 @@ public class Botesito {
         /*
           Con el bot ejecutándose podremos enviar un mensaje: !ping. Y el nos responderá: !pong.
          */
-
+/*
             if ("!ping".equals(message.getContent())) {
                 final MessageChannel channel = message.getChannel().block();
                 channel.createMessage("Pong!").block();
@@ -53,7 +53,7 @@ public class Botesito {
         /*
         Aqui está el funcionamiento del !embed que es muy parecido al !ping y Pong! solo que nos devuelve un embed
         en vez de un mensaje.
-         */
+         *//*
 
             if ("!embed".equals(message.getContent())) {
                 String IMAGE_URL = "https://i.imgflip.com/1d4rel.jpg";
@@ -76,7 +76,7 @@ public class Botesito {
           Si escribimos "!img" el bot mandará una imágen y está en un try catch por si no encuentra la imagen
           (FileNotFoundException).
          */
-
+/*
             if ("!img".equals(message.getContent())) {
                 final MessageChannel channel = message.getChannel().block();
 
@@ -98,3 +98,5 @@ public class Botesito {
         gateway.onDisconnect().block();
     }
 }
+
+        */

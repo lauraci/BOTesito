@@ -51,7 +51,7 @@ public class DriveQuickstart {
      * En el ejemplo original esta readonly metadatos, por lo tanto si lo dejamos asi
      * no podremos descargar ficheros, solo listarlos
      */
-    private static final List<String> SCOPES = Collections.singletonList(DriveScopes.DRIVE);
+    private static final List<String> SCOPES = Collections.singletonList(DriveScopes.DRIVE_FILE);
     private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
 
     /**
@@ -107,7 +107,7 @@ public class DriveQuickstart {
             }
             // busco la imagen en el directorio
             FileList resultImagenes = service.files().list()
-                    .setQ("name contains 'gatito' and parents in '"+dirImagenes+"'")
+                    .setQ("name contains 'prueba.docs' and parents in '"+dirImagenes+"'")
                     .setSpaces("drive")
                     .setFields("nextPageToken, files(id, name)")
                     .execute();
@@ -116,7 +116,7 @@ public class DriveQuickstart {
             for (File file : filesImagenes) {
                 System.out.printf("Imagen: %s\n", file.getName());
                 // guardamos el 'stream' en el fichero aux.jpeg
-                OutputStream outputStream = new FileOutputStream("/Users/laura/proyectosCOD/Api/src/main/java/Imagenes/aux.jpeg");
+                OutputStream outputStream = new FileOutputStream("/Users/laura/proyectosCOD/Api/src/main/java/PDF/ji.docs");
                 service.files().get(file.getId())
                         .executeMediaAndDownloadTo(outputStream);
                 outputStream.flush();
