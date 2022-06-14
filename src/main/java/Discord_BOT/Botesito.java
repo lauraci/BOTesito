@@ -1,4 +1,4 @@
-/*package Discord_BOT;
+package Discord_BOT;
 import discord4j.core.DiscordClient;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.event.domain.message.MessageCreateEvent;
@@ -28,8 +28,10 @@ public class Botesito {
           - Se crea el cliente utilazando el token
           - Se crea un getaway(pasarela) usando el cliente.
 
-    /*
+
       Creamos el mensaje embed donde nos da el titulo y la imagen del mismo.
+
+            */
 
 
         EmbedCreateSpec embed = EmbedCreateSpec.builder()
@@ -43,17 +45,19 @@ public class Botesito {
         /*
           Con el bot ejecutándose podremos enviar un mensaje: !ping. Y el nos responderá: !pong.
          */
-/*
+
             if ("!ping".equals(message.getContent())) {
                 final MessageChannel channel = message.getChannel().block();
                 channel.createMessage("Pong!").block();
             }
 
 
-        /*
-        Aqui está el funcionamiento del !embed que es muy parecido al !ping y Pong! solo que nos devuelve un embed
+
+       /* Aqui está el funcionamiento del !embed que es muy parecido al !ping y Pong! solo que nos devuelve un embed
         en vez de un mensaje.
-         *//*
+
+        */
+
 
             if ("!embed".equals(message.getContent())) {
                 String IMAGE_URL = "https://i.imgflip.com/1d4rel.jpg";
@@ -72,24 +76,26 @@ public class Botesito {
                 
             }
 
-        /*
-          Si escribimos "!img" el bot mandará una imágen y está en un try catch por si no encuentra la imagen
+
+          /*Si escribimos "!pdf" el bot mandará un pdf y está en un try catch por si no encuentra el pdf
           (FileNotFoundException).
-         */
-/*
-            if ("!img".equals(message.getContent())) {
+
+           */
+
+
+            if ("!pdf".equals(message.getContent())) {
                 final MessageChannel channel = message.getChannel().block();
 
                 InputStream fileAsInputStream = null;
                 try {
-                    fileAsInputStream = new FileInputStream("/Users/laura/proyectosCOD/DiscordBOT/src/main/java/Imagenes/cat.jpg");
+                    fileAsInputStream = new FileInputStream("/Users/laura/proyectosCOD/Api/src/main/java/PDF/prueba.pdf");
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
 
                 channel.createMessage(MessageCreateSpec.builder()
-                        .content("Lindo gatihno")
-                        .addFile("/Users/laura/proyectosCOD/DiscordBOT/src/main/java/Imagenes/cat.jpg", fileAsInputStream)
+                        .content("Lindo pedefiño")
+                        .addFile("/Users/laura/proyectosCOD/Api/src/main/java/PDF/prueba.pdf", fileAsInputStream)
                         .addEmbed(embed)
                         .build()).subscribe();
             }
@@ -99,4 +105,3 @@ public class Botesito {
     }
 }
 
-        */

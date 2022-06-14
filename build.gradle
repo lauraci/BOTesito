@@ -11,7 +11,7 @@ repositories {
 }
 
 dependencies {
-    //implementation "com.discord4j:discord4j-core:3.2.2"
+    implementation "com.discord4j:discord4j-core:3.2.2"
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
     implementation 'com.google.api-client:google-api-client:1.33.0'
