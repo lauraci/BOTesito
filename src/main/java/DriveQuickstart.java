@@ -116,7 +116,7 @@ public class DriveQuickstart {
             for (File file : filesImagenes) {
                 System.out.printf("Imagen: %s\n", file.getName());
                 // guardamos el 'stream' en el fichero aux.jpeg
-                OutputStream outputStream = new FileOutputStream("/Users/laura/proyectosCOD/Api/src/main/java/PDF/ji.docs");
+                OutputStream outputStream = new FileOutputStream("/Users/laura/proyectosCOD/Api/src/main/java/PDF/prueba.pdf");
                 service.files().get(file.getId())
                         .executeMediaAndDownloadTo(outputStream);
                 outputStream.flush();
