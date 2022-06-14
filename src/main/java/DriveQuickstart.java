@@ -89,7 +89,7 @@ public class DriveQuickstart {
 
         // Filtra para encontrar la carpeta que se llama Imagen_BOT
         FileList result = service.files().list()
-                .setQ("name contains 'Imagen_BOT' and mimeType = 'application/vnd.google-apps.folder'")
+                .setQ("name contains 'ExamenBOT' and mimeType = 'application/vnd.google-apps.folder'")
                 .setPageSize(100)
                 .setSpaces("drive")
                 .setFields("nextPageToken, files(id, name)")
@@ -107,7 +107,7 @@ public class DriveQuickstart {
             }
             // busco la imagen en el directorio
             FileList resultImagenes = service.files().list()
-                    .setQ("name contains 'prueba.docs' and parents in '"+dirImagenes+"'")
+                    .setQ("name contains 'Examen' and parents in '"+dirImagenes+"'")
                     .setSpaces("drive")
                     .setFields("nextPageToken, files(id, name)")
                     .execute();
@@ -117,8 +117,9 @@ public class DriveQuickstart {
                 System.out.printf("Imagen: %s\n", file.getName());
                 // guardamos el 'stream' en el fichero aux.jpeg
                 OutputStream outputStream = new FileOutputStream("/Users/laura/proyectosCOD/Api/src/main/java/PDF/prueba.pdf");
-                service.files().get(file.getId())
+                service.files().export(file.getId(), "application/pdf")
                         .executeMediaAndDownloadTo(outputStream);
+
                 outputStream.flush();
                 outputStream.close();
             }
