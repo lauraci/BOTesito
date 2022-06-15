@@ -27,11 +27,19 @@ import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
+import discord4j.core.DiscordClient;
+import discord4j.core.GatewayDiscordClient;
+import discord4j.core.event.domain.message.MessageCreateEvent;
+import discord4j.core.object.entity.Message;
+import discord4j.core.object.entity.channel.MessageChannel;
+import discord4j.core.spec.EmbedCreateSpec;
+import discord4j.core.spec.MessageCreateSpec;
 
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.GeneralSecurityException;
+import java.time.Instant;
 import java.util.Collections;
 import java.util.List;
 
@@ -124,6 +132,95 @@ public class DriveQuickstart {
                 outputStream.close();
             }
         }
+
+
+        final String token = "OTgyMDA3NjI5NTc4NjY1OTg1.GhcJNZ.x9JExQZpj7bocsMq6c3arZfzBMkBz1W6UA4N8w";
+        final DiscordClient client = DiscordClient.create(token);
+        final GatewayDiscordClient gateway = client.login().block();
+
+           /*
+          Creamos 3 constantes:
+          - Variable String para almacenar el token.
+          - Se crea el cliente utilazando el token
+          - Se crea un getaway(pasarela) usando el cliente.
+
+
+      Creamos el mensaje embed donde nos da el titulo y la imagen del mismo.
+
+            */
+
+
+        EmbedCreateSpec embed = EmbedCreateSpec.builder()
+                .title("Catinho")
+                .image("attachment://loki.jpg")
+                .build();
+
+        gateway.on(MessageCreateEvent.class).subscribe(event -> {
+            final Message message = event.getMessage();
+
+        /*
+          Con el bot ejecutándose podremos enviar un mensaje: !ping. Y el nos responderá: !pong.
+         */
+
+            if ("!ping".equals(message.getContent())) {
+                final MessageChannel channel = message.getChannel().block();
+                channel.createMessage("Pong!").block();
+            }
+
+
+
+       /* Aqui está el funcionamiento del !embed que es muy parecido al !ping y Pong! solo que nos devuelve un embed
+        en vez de un mensaje.
+
+        */
+
+
+            if ("!embed".equals(message.getContent())) {
+                String IMAGE_URL = "https://i.imgflip.com/1d4rel.jpg";
+                String ANY_URL = "https://www.youtube.com/watch?v=0HVI9Zr3FgY";
+                final MessageChannel channel = message.getChannel().block();
+                EmbedCreateSpec.Builder builder = EmbedCreateSpec.builder();
+                builder.author("¿Pues quién va a ser? Laura", ANY_URL, IMAGE_URL);
+                builder.image(IMAGE_URL);
+                builder.title("Mi querido Bot");
+                builder.url(ANY_URL);
+                builder.description("Bienvenidos al canal, sentaos y poneos cómodos. Empieza el camino del terror");
+                builder.thumbnail(IMAGE_URL);
+                builder.footer("BOO", IMAGE_URL);
+                builder.timestamp(Instant.now());
+                channel.createMessage(builder.build()).block();
+
+            }
+
+
+          /*Si escribimos "!pdf" el bot mandará un pdf y está en un try catch por si no encuentra el pdf
+          (FileNotFoundException).
+
+           */
+
+
+            if ("!pdf".equals(message.getContent())) {
+                final MessageChannel channel = message.getChannel().block();
+
+                InputStream fileAsInputStream = null;
+                try {
+                    fileAsInputStream = new FileInputStream("/Users/laura/proyectosCOD/Api/src/main/java/PDF/prueba.pdf");
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+                channel.createMessage(MessageCreateSpec.builder()
+                        .content("Lindo pedefiño")
+                        .addFile("/Users/laura/proyectosCOD/Api/src/main/java/PDF/prueba.pdf", fileAsInputStream)
+                        .addEmbed(embed)
+                        .build()).subscribe();
+            }
+        });
+
+        gateway.onDisconnect().block();
+
+
+
     }
 }
 // [END drive_quickstart]
